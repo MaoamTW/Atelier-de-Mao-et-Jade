@@ -226,7 +226,7 @@
      le meuble reste entièrement visible, et la taille reste raisonnable sur mobile comme sur PC. */
   .project-visual{
     position:relative; overflow:hidden; cursor:pointer;
-    width:100%; aspect-ratio:3/4; max-height:68vh;
+    width:100%; aspect-ratio:3/4; max-height:50vh;
     background:linear-gradient(135deg,#E9E2D2,#DDD2B8);
   }
   @media (min-width:1024px){
@@ -983,6 +983,11 @@
     if (!project.classList.contains('revealed')) {
       project.classList.add('revealed');
       project.classList.add('expanded');
+      // Fait défiler doucement la page pour que le texte qui vient d'apparaître soit visible à l'écran
+      setTimeout(() => {
+        const details = project.querySelector('.project-details');
+        if (details) details.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 300);
     }
   }
   document.querySelectorAll('[data-toggle-avant]').forEach(el => {
