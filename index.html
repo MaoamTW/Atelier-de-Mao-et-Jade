@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>L'Atelier de Mao & Jade — On récupère. On transforme. On recommence.</title>
+<meta name="description" content="Mao & Jade récupèrent de vieux meubles et les transforment, pièce par pièce, projet après projet.">
+
+<!-- ============================================================
+     ✏️ LOGO — Fichiers déjà générés à partir du logo fourni (L'Atelier de Mao & Jade).
+     Pour REMPLACER le logo plus tard : régénérez ces mêmes fichiers à partir de votre
+     nouveau visuel (mêmes noms, mêmes tailles) et remplacez-les dans le dossier du site :
+       - logo-mao-jade.png      (logo affiché dans le menu, fond transparent)
+       - favicon.ico            (16/32/48 px)
+       - favicon-16x16.png / favicon-32x32.png / favicon-48x48.png
+       - apple-touch-icon.png   (180×180 px, fond opaque)
+       - icon-192.png / icon-512.png (icônes Android / PWA)
+       - manifest.webmanifest   (référence icon-192.png et icon-512.png)
+     ============================================================ -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1C1C1C">
+<!-- Ajout à l'écran d'accueil iPhone : mode plein écran, sans barre Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mao & Jade">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --creme: #F4F0E8;
+    --charbon: #1C1C1C;
+    --bois: #C5A880;
+    --charbon-70: rgba(28,28,28,0.70);
+    --charbon-40: rgba(28,28,28,0.40);
+    --creme-90: rgba(244,240,232,0.92);
+
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--creme);
+    color:var(--charbon);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  .wrap{ width:100%; padding:0 20px; }
+  @media (min-width:768px){ .wrap{ padding:0 48px; } }
+  @media (min-width:1200px){ .wrap{ max-width:1320px; margin:0 auto; } }
+
+  /* ================= PHOTO / VIDEO SLOTS ================= */
+  .photo-slot{
+    position:relative; overflow:hidden;
+    background:linear-gradient(135deg,#E9E2D2,#DDD2B8);
+  }
+  .photo-slot img{ width:100%; height:100%; object-fit:cover; }
+  .photo-slot .placeholder{
+    display:none; position:absolute; inset:0;
+    flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:8px; padding:16px;
+    border:1.5px dashed rgba(28,28,28,0.35);
+    background:
+      repeating-linear-gradient(45deg, rgba(28,28,28,0.035) 0 2px, transparent 2px 14px),
+      linear-gradient(135deg,#E9E2D2,#DDD2B8);
+  }
+  .photo-slot.missing .placeholder{ display:flex; }
+  .photo-slot.missing img{ display:none; }
+  .placeholder svg{ width:32px; height:32px; opacity:0.5; color:var(--charbon); }
+  .placeholder .pt{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--charbon); }
+  .placeholder .pm{ font-family:var(--mono); font-size:0.62rem; letter-spacing:0.05em; color:var(--bois); }
+  .placeholder .pn{ font-family:var(--mono); font-size:0.58rem; color:#8a7f6d; }
+
+  /* ================= HEADER ================= */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    transition:background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  }
+  header.solid{
+    background:var(--creme-90);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 rgba(28,28,28,0.08);
+  }
+  .nav-wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 20px;
+  }
+  @media (min-width:768px){ .nav-wrap{ padding:22px 48px; } }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    transition:transform 0.3s ease;
+  }
+  .brand:hover{ transform:scale(1.03); }
+  .brand img{
+    height:40px; width:auto; display:block;
+  }
+  @media (min-width:768px){ .brand img{ height:48px; } }
+  .brand-text{
+    font-family:var(--display); font-weight:700; font-size:0.78rem; line-height:1.25;
+    letter-spacing:0.02em; color:var(--creme);
+    transition:color 0.4s ease;
+  }
+  @media (min-width:768px){ .brand-text{ font-size:0.88rem; } }
+  header.solid .brand-text{ color:var(--charbon); }
+
+  nav.main-nav{ display:none; }
+  @media (min-width:860px){
+    nav.main-nav{ display:flex; gap:36px; }
+    nav.main-nav a{
+      font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em;
+      color:var(--creme); transition:color 0.4s ease, opacity 0.25s ease;
+    }
+    header.solid nav.main-nav a{ color:var(--charbon); }
+    nav.main-nav a:hover{ opacity:0.6; }
+  }
+
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .nav-socials{ display:none; }
+  @media (min-width:860px){
+    .nav-socials{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .nav-socials a{ color:var(--creme); transition:color 0.4s ease, opacity 0.25s ease; display:inline-flex; align-items:center; }
+    header.solid .nav-socials a{ color:var(--charbon); }
+    .nav-socials a:hover{ opacity:0.6; }
+    .nav-socials .social-letter{ font-family:var(--display); font-weight:700; font-size:1.05rem; line-height:1; }
+    .nav-socials .social-text{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  }
+
+  /* Zone tactile agrandie (44x44 px minimum) pour un usage confortable au pouce */
+  .burger{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    width:44px; height:44px; z-index:210; margin:-10px;
+  }
+  @media (min-width:860px){ .burger{ display:none; } }
+  .burger span{ width:24px; height:2px; background:var(--creme); border-radius:2px; transition:background 0.4s ease, transform 0.3s ease, opacity 0.3s ease; }
+  header.solid .burger span{ background:var(--charbon); }
+  .burger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2){ opacity:0; }
+  .burger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  .burger.active span{ background:var(--charbon) !important; }
+
+  .mobile-menu{
+    position:fixed; inset:0; z-index:190;
+    background:var(--creme);
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+    gap:18px; padding:24px 24px; overflow-y:auto;
+    transform:translateY(-100%); transition:transform 0.45s cubic-bezier(.6,.05,.2,1);
+  }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{ font-family:var(--display); font-size:2.1rem; font-weight:600; min-height:44px; display:flex; align-items:center; }
+  .mobile-menu .m-socials{ display:flex; flex-wrap:wrap; gap:16px 20px; margin-top:12px; }
+  .mobile-menu .m-socials a{ font-family:var(--mono); font-size:0.8rem; letter-spacing:0.08em; min-height:44px; display:flex; align-items:center; }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; height:100vh; height:100svh; min-height:520px;
+    display:flex; align-items:flex-end;
+  }
+  .hero .photo-slot{ position:absolute; inset:0; }
+  .hero-overlay{ position:absolute; inset:0; background:rgba(28,28,28,0.38); }
+  .hero-content{ position:relative; z-index:2; color:var(--creme); padding:0 20px 100px; width:100%; }
+  @media (min-width:768px){ .hero-content{ padding:0 48px 120px; max-width:900px; } }
+  .hero-content h1{
+    font-family:var(--display); font-weight:700; text-transform:uppercase;
+    font-size:clamp(2.6rem, 12vw, 5.5rem); line-height:0.95; letter-spacing:-0.01em;
+  }
+  .hero-content .tagline{
+    font-family:var(--mono); font-size:0.85rem; letter-spacing:0.03em;
+    margin-top:18px; color:rgba(244,240,232,0.85); max-width:340px;
+  }
+  .scroll-arrow{
+    position:absolute; bottom:26px; left:20px; z-index:2;
+    color:var(--creme); display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  @media (min-width:768px){ .scroll-arrow{ left:48px; } }
+  .scroll-arrow svg{ width:18px; height:18px; animation:bounceDown 1.8s ease-in-out infinite; }
+  @keyframes bounceDown{ 0%,100%{ transform:translateY(0); opacity:0.6; } 50%{ transform:translateY(8px); opacity:1; } }
+
+  /* ================= SECTION HEAD (courte, pas de paragraphes) ================= */
+  .section-head{ padding:64px 0 28px; }
+  @media (min-width:768px){ .section-head{ padding:90px 0 40px; } }
+  .section-head .eyebrow{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--bois); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .section-head .eyebrow::before{ content:""; width:20px; height:1px; background:var(--bois); }
+  .section-head h2{
+    font-family:var(--display); font-weight:700; text-transform:uppercase;
+    font-size:clamp(1.7rem, 6vw, 2.9rem); letter-spacing:-0.01em; max-width:640px;
+  }
+
+  /* ================= PROJETS — cartes photo + texte ================= */
+  /* Sur mobile, les projets s'enchaînent sans espace blanc entre eux (photo suivante
+     collée juste après le texte noir du projet précédent). L'espacement ne revient
+     que sur PC, où la mise en page est côte à côte (photo + texte) et non empilée. */
+  .project{ margin-bottom:0; }
+  @media (min-width:1024px){ .project{ margin-bottom:72px; } }
+
+  .project-card{ display:flex; flex-direction:column; }
+  @media (min-width:1024px){
+    .project-card{ flex-direction:row; align-items:stretch; gap:48px; }
+    .project:nth-child(even) .project-card{ flex-direction:row-reverse; }
+  }
+
+  /* Photo au ratio 3:4 (format portrait standard des photos prises au téléphone) : elle n'est plus recadrée en hauteur,
+     le meuble reste entièrement visible, et la taille reste raisonnable sur mobile comme sur PC. */
+  .project-visual{
+    position:relative; overflow:hidden; cursor:pointer;
+    width:100%; aspect-ratio:3/4; max-height:68vh;
+    background:linear-gradient(135deg,#E9E2D2,#DDD2B8);
+  }
+  @media (min-width:1024px){
+    .project-visual{ width:46%; flex-shrink:0; max-height:600px; }
+  }
+  .project-visual:focus-visible{ outline:3px solid var(--bois); outline-offset:-3px; }
+  .project-media{ position:absolute; inset:0; }
+  .project-media .photo-slot{ position:absolute; inset:0; transition:opacity 0.5s ease; }
+  .project-media .photo-slot.hidden-state{ opacity:0; pointer-events:none; }
+
+  /* Pastille sur la photo : indique qu'on peut cliquer dessus pour voir l'avant.
+     Elle disparaît en fondu dès le premier clic (plus besoin de l'indice ensuite). */
+  .state-badge{
+    position:absolute; z-index:2; top:16px; left:16px;
+    font-family:var(--mono); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--creme); background:rgba(28,28,28,0.55); backdrop-filter:blur(4px);
+    padding:8px 13px; border-radius:20px; display:inline-flex; align-items:center; gap:7px;
+    transition:background 0.25s ease, opacity 0.4s ease;
+    opacity:1;
+  }
+  .project.revealed .state-badge{ opacity:0; pointer-events:none; }
+  .state-badge .icon{ display:inline-block; transition:transform 0.35s ease; font-size:0.85rem; }
+  .project.showing-avant .state-badge .icon{ transform:rotate(180deg); }
+
+  .project-info{
+    position:relative; padding:22px 20px 28px;
+    background:var(--charbon); color:var(--creme);
+  }
+  @media (min-width:1024px){
+    .project-info{
+      flex:1; display:flex; flex-direction:column; justify-content:center;
+      padding:8px 0; background:transparent; color:var(--charbon);
+    }
+  }
+  .project-ghost{
+    font-family:var(--mono); font-weight:500; font-size:clamp(3rem,13vw,5.5rem);
+    color:rgba(244,240,232,0.14); -webkit-text-stroke:1.4px rgba(244,240,232,0.55);
+    line-height:1; display:block; margin-bottom:2px; user-select:none;
+  }
+  @media (min-width:1024px){
+    .project-ghost{ color:rgba(28,28,28,0.08); -webkit-text-stroke:1.4px rgba(28,28,28,0.3); font-size:clamp(3.2rem,6vw,5rem); }
+  }
+  .project-num{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.12em; color:var(--bois); }
+  .project-info h3{
+    font-family:var(--display); font-weight:700; text-transform:uppercase;
+    font-size:clamp(1.5rem,6vw,2.4rem); margin:6px 0 8px; line-height:1.05;
+  }
+  .project-meta{ font-family:var(--mono); font-size:0.78rem; letter-spacing:0.06em; color:rgba(244,240,232,0.85); margin-bottom:18px; }
+  @media (min-width:1024px){ .project-meta{ color:#5a5142; } }
+
+  .project-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; }
+  .cta-link{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px; color:var(--creme); min-height:44px;
+  }
+  @media (min-width:1024px){ .cta-link{ color:var(--charbon); } }
+  .cta-link .arrow{ transition:transform 0.35s ease; }
+
+  /* Espace de texte qui apparaît sous le meuble : la hauteur ET l'opacité s'animent ensemble,
+     avec un léger décalage, pour un effet fluide plutôt qu'une apparition brusque. */
+  /* Le texte se déplie sur la hauteur RÉELLE du contenu (et non une hauteur maximale
+     arbitraire) : l'animation dure alors vraiment 1 seconde du début à la fin, au lieu
+     de sembler instantanée parce que le texte est plus court que la hauteur prévue. */
+  .project-details{
+    display:grid; grid-template-rows:0fr;
+    transition:grid-template-rows 1s ease;
+  }
+  .project.expanded .project-details{ grid-template-rows:1fr; }
+  .project-details-inner{
+    overflow:hidden; min-height:0;
+    padding:18px 0 6px; max-width:640px;
+    opacity:0; transform:translateY(24px);
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  .project.expanded .project-details-inner{
+    opacity:1; transform:translateY(0);
+  }
+  .project-details-inner p{ font-size:0.95rem; line-height:1.7; color:rgba(244,240,232,0.8); }
+  @media (min-width:1024px){ .project-details-inner p{ color:#5a5142; } }
+  .project-details-inner .dl{ font-family:var(--mono); font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--bois); margin-bottom:10px; display:block; }
+
+  @media (hover:hover) and (pointer:fine){
+    .project-visual:hover .photo-slot:not(.hidden-state){ transform:scale(1.04); }
+    .photo-slot{ transition:transform 0.7s cubic-bezier(.2,.6,.2,1); }
+    .project-visual:hover .state-badge{ background:rgba(28,28,28,0.72); }
+    .project-actions .cta-link:hover .arrow{ transform:translateX(6px); }
+  }
+
+  /* ================= À PROPOS (très court) ================= */
+  #a-propos{ padding-bottom:70px; }
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:28px; }
+  @media (min-width:860px){ .about-grid{ grid-template-columns:1fr 1fr; gap:56px; align-items:center; } }
+  .about-grid .photo-slot{ aspect-ratio:3/4; }
+  .about-text p.lead{
+    font-family:var(--display); font-weight:500; font-size:clamp(1.3rem,4vw,1.7rem); line-height:1.3;
+  }
+  .about-stats{ display:flex; gap:28px; margin-top:32px; flex-wrap:wrap; }
+  .about-stats .stat b{ font-family:var(--display); font-size:1.9rem; display:block; color:var(--charbon); }
+  .about-stats .stat span{ font-family:var(--mono); font-size:0.65rem; letter-spacing:0.08em; color:var(--bois); text-transform:uppercase; }
+
+  /* ================= CONTACT ================= */
+  #contact{ background:var(--charbon); color:var(--creme); padding:80px 0 60px; }
+  #contact .eyebrow{ color:var(--bois); }
+  #contact .eyebrow::before{ background:var(--bois); }
+  #contact h2{ font-family:var(--display); font-weight:700; text-transform:uppercase; font-size:clamp(1.8rem,7vw,3.2rem); max-width:560px; }
+  .contact-cta{
+    margin-top:32px; display:inline-flex; align-items:center; gap:12px;
+    font-family:var(--mono); font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--bois); color:var(--charbon); padding:18px 26px; border-radius:2px;
+    min-height:44px; transition:background 0.25s ease;
+  }
+  .contact-cta:hover{ background:var(--creme); }
+  .contact-details{ margin-top:44px; display:flex; flex-direction:column; gap:14px; }
+  .contact-details .label{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.08em; color:var(--bois); text-transform:uppercase; }
+  .contact-details .value{ font-family:var(--body); font-size:0.98rem; color:rgba(244,240,232,0.85); }
+  .contact-socials{ display:flex; gap:22px; margin-top:44px; flex-wrap:wrap; }
+  .contact-socials a{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase;
+    display:flex; align-items:center; gap:8px; min-height:44px;
+  }
+  .contact-socials a:hover{ color:var(--bois); }
+  .contact-socials .social-letter{ font-family:var(--display); font-weight:700; font-size:1rem; text-transform:none; }
+
+  footer{
+    background:var(--charbon); color:rgba(244,240,232,0.5);
+    padding:24px 0 34px; font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    border-top:1px solid rgba(244,240,232,0.1);
+  }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="nav-wrap">
+    <a href="#accueil" class="brand">
+      <!--
+        ✏️ LOGO — remplacez "logo-mao-jade.png" par votre propre fichier si besoin
+        (fond transparent recommandé, image carrée, ex. 512×512 px).
+      -->
+      <img src="logo-mao-jade.png" alt="Logo L'Atelier de Mao & Jade">
+      <span class="brand-text">L'ATELIER<br>DE MAO &amp; JADE</span>
+    </a>
+    <nav class="main-nav">
+      <a href="#projets">PROJETS</a>
+      <a href="#a-propos">À PROPOS</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-socials">
+        <!-- Lien Instagram -->
+        <a href="METTRE-ICI-LE-LIEN-INSTAGRAM" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        </a>
+        <!-- Lien TikTok -->
+        <a href="METTRE-ICI-LE-LIEN-TIKTOK" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.7 3.7 4 4v3c-1.4 0-2.8-.4-4-1.2v6.4a6.2 6.2 0 1 1-6.2-6.2c.4 0 .8 0 1.2.1v3.1a3.1 3.1 0 1 0 2 2.9V3h3z"/></svg>
+        </a>
+        <!--
+          ⬇⬇⬇ LIEN FACEBOOK — à ajouter ici ⬇⬇⬇
+          Remplacez METTRE-ICI-LE-LIEN-FACEBOOK par le lien de votre page Facebook
+        -->
+        <a href="METTRE-ICI-LE-LIEN-FACEBOOK" target="_blank" rel="noopener" aria-label="Facebook" class="social-letter">f</a>
+        <!--
+          ⬇⬇⬇ LIEN LEBONCOIN — à ajouter ici ⬇⬇⬇
+          Remplacez METTRE-ICI-LE-LIEN-LEBONCOIN par le lien de votre boutique/profil Leboncoin
+        -->
+        <a href="METTRE-ICI-LE-LIEN-LEBONCOIN" target="_blank" rel="noopener" aria-label="Leboncoin" class="social-text">leboncoin</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#projets">PROJETS</a>
+  <a href="#a-propos">À PROPOS</a>
+  <a href="#contact">CONTACT</a>
+  <div class="m-socials">
+    <a href="METTRE-ICI-LE-LIEN-INSTAGRAM" target="_blank" rel="noopener">INSTAGRAM</a>
+    <a href="METTRE-ICI-LE-LIEN-TIKTOK" target="_blank" rel="noopener">TIKTOK</a>
+    <!-- ⬇⬇⬇ LIEN FACEBOOK — à ajouter ici ⬇⬇⬇ -->
+    <a href="METTRE-ICI-LE-LIEN-FACEBOOK" target="_blank" rel="noopener">FACEBOOK</a>
+    <!-- ⬇⬇⬇ LIEN LEBONCOIN — à ajouter ici ⬇⬇⬇ -->
+    <a href="METTRE-ICI-LE-LIEN-LEBONCOIN" target="_blank" rel="noopener">LEBONCOIN</a>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- HERO / ACCUEIL — occupe ~90-100% de la hauteur d'écran -->
+<!-- ============================================================ -->
+<section class="hero" id="accueil">
+  <!--
+    PHOTO ACCUEIL — Photo principale du hero
+    Utilisation : image plein écran en fond de la page d'accueil, avec filtre sombre léger
+    Format conseillé : WEBP
+    Dimensions conseillées : 1920 × 1080 px
+    Ratio conseillé : 16:9
+    Nom de fichier conseillé : accueil-atelier.webp
+    ⬇⬇⬇ REMPLACER LE LIEN CI-DESSOUS ⬇⬇⬇
+  -->
+  <div class="photo-slot">
+    <img src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO-ACCUEIL" alt="Mao et Jade dans l'atelier">
+    <div class="placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+      <p class="pt">Photo à ajouter</p>
+      <p class="pm">1920 × 1080 PX · FORMAT WEBP · RATIO 16:9</p>
+      <p class="pn">accueil-atelier.webp</p>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>L'ATELIER<br>DE MAO &amp; JADE</h1>
+    <p class="tagline">On récupère. On transforme. On recommence.</p>
+  </div>
+  <a href="#projets" class="scroll-arrow" aria-label="Découvrir les projets">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+  </a>
+</section>
+
+<!-- ============================================================ -->
+<!-- PROJETS — chaque meuble = un épisode -->
+<!-- ============================================================ -->
+<main id="projets">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Réalisations</span>
+      <h2>Nos dernières<br>transformations</h2>
+    </div>
+  </div>
+
+  <div class="projects-scroller">
+
+    <!-- ===== PROJET 01 ===== -->
+    <section class="project showing-avant" id="projet-01" data-project="01">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Buffet vintage">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 01, état APRÈS
+          Utilisation : affichée quand on clique sur la photo (état "après")
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-01-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Buffet vintage après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-01-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 01, état AVANT
+          Utilisation : grande photo affichée par défaut pour ce projet
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-01-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Buffet vintage avant transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-01-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">01</span>
+          <span class="project-num">PROJET 01</span>
+          <h3>Buffet vintage</h3>
+          <p class="project-meta">9H · 50&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 01 (Buffet vintage)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJET 02 ===== -->
+    <section class="project showing-avant" id="projet-02" data-project="02">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Table basse en chêne">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 02, état APRÈS
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-02-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Table basse en chêne après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-02-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 02, état AVANT
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-02-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Table basse en chêne avant transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-02-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">02</span>
+          <span class="project-num">PROJET 02</span>
+          <h3>Table basse en chêne</h3>
+          <p class="project-meta">14H · 80&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 02 (Table basse en chêne)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJET 03 ===== -->
+    <section class="project showing-avant" id="projet-03" data-project="03">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Chaises bistrot">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 03, état APRÈS
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-03-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="https://i.imgur.com/NQh3CXu.jpeg" alt="Chaises bistrot après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-03-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 03, état AVANT
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-03-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="https://i.imgur.com/lJXRQhl.jpeg" alt="Chaises bistrot avant transformation"><div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-03-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">03</span>
+          <span class="project-num">PROJET 03</span>
+          <h3>Chaises bistrot</h3>
+          <p class="project-meta">6H · 35&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 03 (Chaises bistrot)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJET 04 ===== -->
+    <section class="project showing-avant" id="projet-04" data-project="04">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Commode scandinave">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 04, état APRÈS
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-04-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Commode scandinave après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-04-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 04, état AVANT
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-04-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Commode scandinave avant transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-04-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">04</span>
+          <span class="project-num">PROJET 04</span>
+          <h3>Commode scandinave</h3>
+          <p class="project-meta">11H · 65&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 04 (Commode scandinave)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJET 05 ===== -->
+    <section class="project showing-avant" id="projet-05" data-project="05">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Bureau industriel">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 05, état APRÈS
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-05-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Bureau industriel après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-05-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 05, état AVANT
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-05-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Bureau industriel avant transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-05-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">05</span>
+          <span class="project-num">PROJET 05</span>
+          <h3>Bureau industriel</h3>
+          <p class="project-meta">20H · 120&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 05 (Bureau industriel)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJET 06 ===== -->
+    <section class="project showing-avant" id="projet-06" data-project="06">
+      <div class="project-card">
+        <div class="project-visual" data-toggle-avant tabindex="0" role="button" aria-pressed="true" aria-label="Afficher la photo après du meuble Bibliothèque en pin">
+          <div class="project-media">
+        <!--
+          PHOTO — Projet 06, état APRÈS
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-06-apres.webp
+        -->
+        <div class="photo-slot state-apres hidden-state">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Bibliothèque en pin après transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-06-apres.webp</p>
+          </div>
+        </div>
+        <!--
+          PHOTO — Projet 06, état AVANT
+          Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+          Nom de fichier conseillé : projet-06-avant.webp
+        -->
+        <div class="photo-slot state-avant">
+          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Bibliothèque en pin avant transformation">
+          <div class="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+            <p class="pt">Photo à ajouter</p>
+            <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+            <p class="pn">projet-06-avant.webp</p>
+          </div>
+        </div>          </div>
+          <span class="state-badge"><span class="icon">⇄</span> <span class="state-label">AVANT · CLIQUEZ POUR L'APRÈS</span></span>
+        </div>
+        <div class="project-info">
+          <span class="project-ghost">06</span>
+          <span class="project-num">PROJET 06</span>
+          <h3>Bibliothèque en pin</h3>
+          <p class="project-meta">8H · 40&nbsp;€ INVESTIS</p>
+          <div class="project-actions">
+            <button class="cta-link" data-toggle-avant>
+              <span class="cta-text">VOIR L'APRÈS</span> <span class="arrow">→</span>
+            </button>
+          </div>
+          <div class="project-details">
+            <div class="project-details-inner">
+              <span class="dl">Le mot de l'atelier</span>
+              <!-- ==================================================================
+               ✏️ MODIFIER ICI : texte du PROJET 06 (Bibliothèque en pin)
+               Remplacez le texte temporaire ci-dessous par la véritable histoire
+               de cette restauration (matériaux, techniques, anecdote...).
+               ================================================================== -->
+              <p>Texte temporaire à remplacer&nbsp;: quelques lignes sur l'histoire de ce meuble, les techniques utilisées, le temps passé en atelier et ce qui rend cette transformation unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- À PROPOS — très court, pas de paragraphe long -->
+<!-- ============================================================ -->
+<section id="a-propos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">L'atelier</span>
+      <h2>Mao &amp; Jade</h2>
+    </div>
+    <div class="about-grid">
+      <!--
+        PHOTO — Mao & Jade en atelier
+        Utilisation : image de la section "À propos"
+        Format : WEBP · Dimensions : 1200 × 1600 px · Ratio : 3:4
+        Nom de fichier conseillé : mao-et-jade-atelier.webp
+      -->
+      <div class="photo-slot reveal">
+        <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Mao et Jade dans l'atelier">
+        <div class="placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
+          <p class="pt">Photo à ajouter</p>
+          <p class="pm">1200 × 1600 PX · WEBP · 3:4</p>
+          <p class="pn">mao-et-jade-atelier.webp</p>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p class="lead">On sauve des meubles que tout le monde a oubliés.</p>
+        <div class="about-stats">
+          <div class="stat"><b>40+</b><span>Meubles sauvés</span></div>
+          <div class="stat"><b>100%</b><span>Fait main</span></div>
+          <div class="stat"><b>2023</b><span>Depuis</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CONTACT -->
+<!-- ============================================================ -->
+<section id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h2>Un meuble à transformer ?</h2>
+    <!-- À COMPLÉTER : adresse e-mail de contact -->
+    <a href="mailto:[À-compléter-email-de-contact]" class="contact-cta">Écrire à l'atelier →</a>
+
+    <div class="contact-details">
+      <div>
+        <span class="label">Atelier</span><br>
+        <!-- À COMPLÉTER : localisation de l'atelier -->
+        <span class="value">[À compléter : ville / région]</span>
+      </div>
+      <div>
+        <span class="label">Téléphone</span><br>
+        <!-- À COMPLÉTER : numéro de téléphone -->
+        <span class="value">[À compléter : numéro de téléphone]</span>
+      </div>
+    </div>
+
+    <div class="contact-socials">
+      <!-- Lien Instagram -->
+      <a href="METTRE-ICI-LE-LIEN-INSTAGRAM" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        Instagram
+      </a>
+      <!-- Lien TikTok -->
+      <a href="METTRE-ICI-LE-LIEN-TIKTOK" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.7 3.7 4 4v3c-1.4 0-2.8-.4-4-1.2v6.4a6.2 6.2 0 1 1-6.2-6.2c.4 0 .8 0 1.2.1v3.1a3.1 3.1 0 1 0 2 2.9V3h3z"/></svg>
+        TikTok
+      </a>
+      <!--
+        ⬇⬇⬇ LIEN FACEBOOK — à ajouter ici ⬇⬇⬇
+        Remplacez METTRE-ICI-LE-LIEN-FACEBOOK par le lien de votre page Facebook
+      -->
+      <a href="METTRE-ICI-LE-LIEN-FACEBOOK" target="_blank" rel="noopener">
+        <span class="social-letter">f</span>
+        Facebook
+      </a>
+      <!--
+        ⬇⬇⬇ LIEN LEBONCOIN — à ajouter ici ⬇⬇⬇
+        Remplacez METTRE-ICI-LE-LIEN-LEBONCOIN par le lien de votre boutique/profil Leboncoin
+      -->
+      <a href="METTRE-ICI-LE-LIEN-LEBONCOIN" target="_blank" rel="noopener">
+        leboncoin
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <span>© <span id="year"></span> L'ATELIER DE MAO &amp; JADE</span>
+    <span>MEUBLES RÉCUPÉRÉS · GRAND EST</span>
+  </div>
+</footer>
+
+<script>
+  // Header : transparent sur le hero, plein en scrollant
+  const header = document.getElementById('site-header');
+  const heroH = () => window.innerHeight * 0.85;
+  function onScroll(){
+    header.classList.toggle('solid', window.scrollY > heroH());
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  // Menu mobile
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+  }));
+
+  // Reveal au scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Détection des photos manquantes
+  document.querySelectorAll('.photo-slot img').forEach(img => {
+    img.addEventListener('error', function () {
+      this.closest('.photo-slot').classList.add('missing');
+    });
+    const src = img.getAttribute('src') || '';
+    if (src.includes('METTRE-ICI-LE-LIEN')) {
+      img.closest('.photo-slot').classList.add('missing');
+    }
+  });
+
+  // Toggle avant / après : déclenché soit en cliquant sur la photo, soit sur le bouton "VOIR L'APRÈS"
+  function toggleAvant(project){
+    const apres = project.querySelector('.state-apres');
+    const avant = project.querySelector('.state-avant');
+    const ctaLabel = project.querySelector('.cta-text');
+    const badgeLabel = project.querySelector('.state-label');
+    const visual = project.querySelector('.project-visual');
+    const showingApres = !apres.classList.contains('hidden-state');
+    apres.classList.toggle('hidden-state', showingApres);
+    avant.classList.toggle('hidden-state', !showingApres);
+    project.classList.toggle('showing-avant', showingApres);
+    if (ctaLabel) ctaLabel.textContent = showingApres ? 'VOIR L\u2019APRÈS' : 'VOIR L\u2019AVANT';
+    if (badgeLabel) badgeLabel.textContent = showingApres ? 'AVANT · CLIQUEZ POUR L\u2019APRÈS' : 'APRÈS · CLIQUEZ POUR L\u2019AVANT';
+    if (visual) visual.setAttribute('aria-pressed', showingApres ? 'true' : 'false');
+
+    // Dès le premier clic sur le comparateur : la pastille d'indice disparaît en fondu
+    // et l'histoire du meuble se déplie automatiquement (animation déjà fluide via .project-details).
+    if (!project.classList.contains('revealed')) {
+      project.classList.add('revealed');
+      project.classList.add('expanded');
+    }
+  }
+  document.querySelectorAll('[data-toggle-avant]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleAvant(el.closest('.project'));
+    });
+    if (el.matches('.project-visual')) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleAvant(el.closest('.project'));
+        }
+      });
+    }
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
