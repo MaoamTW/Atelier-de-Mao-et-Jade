@@ -75,6 +75,7 @@
     position:relative; overflow:hidden;
     background:linear-gradient(135deg,#E9E2D2,#DDD2B8);
   }
+  .photo-slot picture{ display:block; width:100%; height:100%; }
   .photo-slot img{ width:100%; height:100%; object-fit:cover; }
   .photo-slot .placeholder{
     display:none; position:absolute; inset:0;
@@ -436,21 +437,40 @@
 <!-- ============================================================ -->
 <section class="hero" id="accueil">
   <!--
-    PHOTO ACCUEIL — Photo principale du hero
+    PHOTO ACCUEIL — Photo principale du hero (2 versions, une seule chargée à la fois)
     Utilisation : image plein écran en fond de la page d'accueil, avec filtre sombre léger
-    Format conseillé : WEBP
-    Dimensions conseillées : 1920 × 1080 px
-    Ratio conseillé : 16:9
-    Nom de fichier conseillé : accueil-atelier.webp
-    ⬇⬇⬇ REMPLACER LE LIEN CI-DESSOUS ⬇⬇⬇
+    Le navigateur choisit automatiquement la bonne image selon la taille de l'écran
+    et ne télécharge QUE celle qui est utilisée (pas les deux).
   -->
   <div class="photo-slot">
-    <img src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO-ACCUEIL" alt="Mao et Jade dans l'atelier">
+    <picture>
+      <!-- ======================================== -->
+      <!-- 💻 IMAGE HERO VERSION PC                  -->
+      <!-- https://i.imgur.com/GFKzZpZ.png          -->
+      <!-- ======================================== -->
+      <!--
+        Utilisation : affichée à partir de 768px de large (tablette et PC)
+        Format conseillé : WEBP · Dimensions conseillées : 1920 × 1080 px · Ratio conseillé : 16:9
+        Nom de fichier conseillé : accueil-atelier-pc.webp
+      -->
+      <source media="(min-width: 768px)" srcset="https://i.imgur.com/GFKzZpZ.png">
+
+      <!-- ======================================== -->
+      <!-- 📱 IMAGE HERO VERSION TÉLÉPHONE           -->
+      <!-- https://i.imgur.com/equNVZz.png      -->
+      <!-- ======================================== -->
+      <!--
+        Utilisation : affichée par défaut, en dessous de 768px de large (téléphone)
+        Format conseillé : WEBP · Dimensions conseillées : 1080 × 1920 px · Ratio conseillé : 9:16
+        Nom de fichier conseillé : accueil-atelier-mobile.webp
+      -->
+      <img src="https://i.imgur.com/equNVZz.png" alt="Mao et Jade dans l'atelier">
+    </picture>
     <div class="placeholder">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
       <p class="pt">Photo à ajouter</p>
-      <p class="pm">1920 × 1080 PX · FORMAT WEBP · RATIO 16:9</p>
-      <p class="pn">accueil-atelier.webp</p>
+      <p class="pm">Mobile : 1080×1920 (9:16) · PC : 1920×1080 (16:9) · WEBP</p>
+      <p class="pn">accueil-atelier-mobile.webp / accueil-atelier-pc.webp</p>
     </div>
   </div>
   <div class="hero-overlay"></div>
@@ -488,7 +508,7 @@
           Nom de fichier conseillé : projet-01-apres.webp
         -->
         <div class="photo-slot state-apres hidden-state">
-          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Buffet vintage après transformation">
+          <img loading="lazy" decoding="async" src="https://i.imgur.com/NQh3CXu.jpeg" alt="Buffet vintage après transformation">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
             <p class="pt">Photo à ajouter</p>
@@ -503,7 +523,7 @@
           Nom de fichier conseillé : projet-01-avant.webp
         -->
         <div class="photo-slot state-avant">
-          <img loading="lazy" decoding="async" src="METTRE-ICI-LE-LIEN-DE-LA-PHOTO" alt="Buffet vintage avant transformation">
+          <img loading="lazy" decoding="async" src="https://i.imgur.com/lJXRQhl.jpeg" alt="Buffet vintage avant transformation">
           <div class="placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5L5 19"/></svg>
             <p class="pt">Photo à ajouter</p>
